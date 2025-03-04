@@ -188,8 +188,8 @@ const char* AnticheatMgr::GetReportNameFromReportType(ReportTypes reportType)
             return "No Fall Damage";
         case OP_ACK_HACK_REPORT:
             return "Op Ack";
-        case COUNTER_MEASURES_REPORT:
-            return "Unknown counter measure";   // Synful-Syn: That is silly. It should not be part of the ReportTypes enum because a counter measure is not a hack.
+       // case COUNTER_MEASURES_REPORT:
+       //    return "Unknown counter measure";   // Synful-Syn: That is silly. It should not be part of the ReportTypes enum because a counter measure is not a hack.
         default:
             return "Unknown";
     }
@@ -266,8 +266,8 @@ uint32 AnticheatMgr::GetMinimumReportInChatThresholdConfigFromReportType(ReportT
             return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.NoFallDamage", 1));
         case OP_ACK_HACK_REPORT:
             return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.OpAck", 1));
-        case COUNTER_MEASURES_REPORT:
-            return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.CounterMeasure", 50));
+       // case COUNTER_MEASURES_REPORT:
+       //     return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.CounterMeasure", 50));
         default:
             return 1;
     }
@@ -1746,7 +1746,7 @@ void AnticheatMgr::BuildReport(Player* player, ReportTypes reportType, Optional<
 
         std::string accountName;
         AccountMgr::GetName(player->GetSession()->GetAccountId(), accountName);
-        sBan->BanAccount(accountName, "0s", "Anticheat module Auto Banned Account for Reach Cheat Threshhold", "Server");
+        sBan->BanAccount(accountName, "86400s", "Anticheat module Auto Banned Account for Reach Cheat Threshhold", "Server");
 
         if (sConfigMgr->GetOption<bool>("Anticheat.AnnounceBan", true))
         {
