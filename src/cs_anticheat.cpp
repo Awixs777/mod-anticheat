@@ -96,7 +96,7 @@ public:
         if (!player)
             return false;
 
-        ChatHandler(player->GetConnectedPlayer()->GetSession()).SendSysMessage("The anticheat system has reported several times that you may be cheating. You will be monitored to confirm if this is accurate.");
+        ChatHandler(player->GetConnectedPlayer()->GetSession()).SendSysMessage("[AntiCheat] Система несколько раз сообщала о нарушениях с вашей стороны. За вами будут следить, чтобы убедиться в точности этой информации.");
         return true;
     }
 
@@ -183,7 +183,7 @@ public:
             return false;
 
         sAnticheatMgr->AnticheatDeleteCommand(player->GetGUID());
-        handler->PSendSysMessage("Anticheat players_reports_status deleted for player %s", player->GetName());
+        handler->PSendSysMessage("Anticheat players_reports_status deleted for player {}", player->GetName());
         return true;
     }
 
@@ -211,25 +211,25 @@ public:
             const char* averageTotalTemplate;
             if (handler->IsConsole())
             {
-                counterMeasureTemplate = "Counter Measures Deployed: %u";
-                lineTemplate_u = "%s Reports: %u";
-                lineTemplate_s = "%s: %s";
+                counterMeasureTemplate = "Counter Measures Deployed: {}";
+                lineTemplate_u = "{} Reports: {}";
+                lineTemplate_s = "{}: {}";
                 lineSeparator = "-----------------------------------------------------------------";
-                playerInformationTemplate = "Information about player %s";
-                ipAndLatencyTemplate = "IP Address: %s || Latency %u ms";
-                banAndReasonTemplate = "Ban by: %s || Ban Reason: %s";
-                averageTotalTemplate = "Average: %f || Total Reports: %u";
+                playerInformationTemplate = "Information about player {}";
+                ipAndLatencyTemplate = "IP Address: {} || Latency {} ms";
+                banAndReasonTemplate = "Ban by: {} || Ban Reason: {}";
+                averageTotalTemplate = "Average: {} || Total Reports: {}";
             }
             else
             {
-                counterMeasureTemplate = "|cffff0000Counter Measures Deployed:|cffffff00 %u";
-                lineTemplate_u = "|cffff0000%s Reports:|cffffff00 %u";
-                lineTemplate_s = "|cffff0000%s:|cffffff00 %s";
+                counterMeasureTemplate = "|cffff0000Counter Measures Deployed:|cffffff00 {}";
+                lineTemplate_u = "|cffff0000{} Reports:|cffffff00 {}";
+                lineTemplate_s = "|cffff0000{}:|cffffff00 {}";
                 lineSeparator = "|cFFFFA500-----------------------------------------------------------------";
-                playerInformationTemplate = "|cFF20B2AAInformation about player:|cffffff00 %s";
-                ipAndLatencyTemplate = "|cffff0000IP Address: |cffffff00%s |cffff0000Latency |cffffff00%u ms";
-                banAndReasonTemplate = "|cffff0000Ban by:|cffffff00 %s |cffff0000Ban Reason:|cffffff00 %s";
-                averageTotalTemplate = "|cffff0000Average: |cffffff00%f |cffff0000Total Reports:|cffffff00 %u";
+                playerInformationTemplate = "|cFF20B2AAInformation about player:|cffffff00 {}";
+                ipAndLatencyTemplate = "|cffff0000IP Address: |cffffff00{} |cffff0000Latency |cffffff00{} ms";
+                banAndReasonTemplate = "|cffff0000Ban by:|cffffff00 {} |cffff0000Ban Reason:|cffffff00 {}";
+                averageTotalTemplate = "|cffff0000Average: |cffffff00%f |cffff0000Total Reports:|cffffff00 {}";
             }
 
             handler->PSendSysMessage(lineSeparator);

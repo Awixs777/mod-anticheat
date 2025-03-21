@@ -188,10 +188,10 @@ const char* AnticheatMgr::GetReportNameFromReportType(ReportTypes reportType)
             return "No Fall Damage";
         case OP_ACK_HACK_REPORT:
             return "Op Ack";
-       // case COUNTER_MEASURES_REPORT:
-       //    return "Unknown counter measure";   // Synful-Syn: That is silly. It should not be part of the ReportTypes enum because a counter measure is not a hack.
+        case COUNTER_MEASURES_REPORT:
+           return "";   // Synful-Syn: That is silly. It should not be part of the ReportTypes enum because a counter measure is not a hack.
         default:
-            return "Unknown";
+            return "";
     }
 }
 
@@ -266,8 +266,8 @@ uint32 AnticheatMgr::GetMinimumReportInChatThresholdConfigFromReportType(ReportT
             return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.NoFallDamage", 1));
         case OP_ACK_HACK_REPORT:
             return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.OpAck", 1));
-       // case COUNTER_MEASURES_REPORT:
-       //     return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.CounterMeasure", 50));
+        case COUNTER_MEASURES_REPORT:
+            return std::max(1u, sConfigMgr->GetOption<uint32>("Anticheat.ReportInChatThreshold.Min.CounterMeasure", 50));
         default:
             return 1;
     }
@@ -1719,6 +1719,7 @@ void AnticheatMgr::BuildReport(Player* player, ReportTypes reportType, Optional<
             LOG_INFO("anticheat.module", "AnticheatMgr:: Reports reached assigned threshhold and counteracted by kicking player {} ({})", player->GetName(), player->GetGUID().ToString());
         }
 
+        // player->TeleportTo(571, 6233.549805f, 5767.120117f, -4.162460f, 0.696379f);
         SendMiddleScreenGMMessage("|cFF00FFFF[|cFF60FF00" + player->GetName() + "|cFF00FFFF] Auto Kicked for Reaching Cheat Threshhold!");
 
         player->GetSession()->KickPlayer(true);
@@ -1730,7 +1731,7 @@ void AnticheatMgr::BuildReport(Player* player, ReportTypes reportType, Optional<
             std::ostringstream stream;
             stream << "|CFF" << plr_colour << "[AntiCheat]|r|CFF" << tag_colour <<
                 " Player |r|cff" << plr_colour << plr << "|r|cff" << tag_colour <<
-                " has been kicked by the Anticheat Module.|r";
+                " has been kicked by the Anticheat.|r";
             sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, stream.str().c_str());
         }
     }
@@ -1756,7 +1757,7 @@ void AnticheatMgr::BuildReport(Player* player, ReportTypes reportType, Optional<
             std::ostringstream stream;
             stream << "|CFF" << plr_colour << "[AntiCheat]|r|CFF" << tag_colour <<
                 " Player |r|cff" << plr_colour << plr << "|r|cff" << tag_colour <<
-                " has been Banned by the Anticheat Module.|r";
+                " has been Banned by the Anticheat.|r";
             sWorldSessionMgr->SendServerMessage(SERVER_MSG_STRING, stream.str().c_str());
         }
     }
